@@ -8,22 +8,29 @@ public class QueenBoard {
 	
 	//Private methods (suggested):
 	private boolean addQueen(int r, int c) {
-		//check if place is valid
 		if (board[r][c] != 0) {
 			return false;
 		}
 		//set place as Queen
+		//-1:Queen
+		//0:open spot
+		//whole numbers:# of queens threatening a spot
 		board[r][c] = -1;
+		//check if valid spot
 		for (int i=0 ; i<board.length ; i++) {
-			
-		}
-		for (int i=0 ; i<board.length ; i++) {
-			
-		}
-		for (int i=0 ; i<board.length ; i++) {
-			
+			if(isOnBoard()){			
+				board[r+i][c+i]+=1;
+				board[r-i][c+i]+=1;
+				board[r][c+i]+=1;
+				board[r+i][c]+=1;
+				board[r-i][c]+=1;
+			}
 		}
 	}
+	private boolean isOnBoard(int r, int c){
+		if(-1<r<board
+	}
+
 	private boolean removeQueen(int r, int c) {
 		
 	}
@@ -46,8 +53,20 @@ public class QueenBoard {
 		return string;
 	}
 	
-	public boolean solve(){
-		return true;
+	public boolean solve(int col){
+		if (col == board.length){
+			return true;
+		}
+		for (int r=0 ; r<board.length ; r++){
+			addQueen(r,col);
+			if (solve(col+1)) {
+				return true;
+			}
+			else {
+				removeQueen(r,col);
+			}
+		}		
+		return false;
 	}
 	
 	public int countSolutions(){
