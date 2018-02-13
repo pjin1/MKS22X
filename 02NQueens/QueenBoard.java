@@ -92,18 +92,22 @@ public class QueenBoard {
 				}
 		    }
 		}
-		return countSolutionsHelp();
+		return countSolutionsHelp(0);
 	}
 	
-	public int countSolutionsHelp() {
-		
+	public int countSolutionsHelp(int col) {
+		int sol = 0;
+		if (col >= board.length){
+		    sol++;
+		}
+		for (int r=0 ; r<board.length ; r++){
+			if(addQueen(r,col)){
+				countSolutionsHelp(col+1);
+		        removeQueen(r,col);
+		    }
+		}
+		return sol;
 	}
 
-	public static void main(String[] ans){
-	    QueenBoard b = new QueenBoard(4);
-	    System.out.println(b.addQueen(0,0));
-	    System.out.println(b.addQueen(1,0));
-	    System.out.println(b);
-	  }
   
 }
