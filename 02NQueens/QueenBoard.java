@@ -3,7 +3,7 @@ public class QueenBoard {
 	
     //Constructor:
     public QueenBoard(int size){
-	board = new int[size][size];
+    		board = new int[size][size];
     }
 	
     //Private methods (suggested):
@@ -51,12 +51,12 @@ public class QueenBoard {
 		String string = ""; 
 		for (int r=0 ; r<board.length ; r++) {
 		    for (int c=0 ; c<board.length ; c++) {
-			if (board[r][c]==-1) {
-			    string += " Q ";
-			}
-			else {
-			    string += " _ ";
-			}
+				if (board[r][c]==-1) {
+				    string += " Q ";
+				}
+				else {
+				    string += " _ ";
+				}
 		    }
 		    string += "\n";
 		}
@@ -66,9 +66,9 @@ public class QueenBoard {
     public boolean solve() {
 		for (int i = 0; i < board.length; i++){
 		    for (int j = 0; j < board.length; j++){
-			if (board[i][j] != 0){
-			    throw new IllegalStateException();
-			}
+				if (board[i][j] != 0){
+				    throw new IllegalStateException();
+				}
 		    }
 		}
 		return solveHelp(0);
