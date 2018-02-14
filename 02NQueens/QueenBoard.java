@@ -8,31 +8,24 @@ public class QueenBoard {
 	
     //Private methods (suggested):
     private boolean addQueen(int r, int c){
-		if (r<board.length && c<board.length){
-		    if (board[r][c] == 0){
+
+		// -1 : Queen
+		//  0 : open spot
+		// whole numbers : # of queens threatening a spot
+		
+    		if (board[r][c] != 0) {
+			return false;
+		}
+    		if (isOnBoard(r,c)){
 			board[r][c] = -1;
-			for (int x = c+1; x < board.length; x++){
-			    board[r][x]++;
-			}
-			if (c < board.length - 1){
-			    int y = c+1;
-			    int x = r+1;
-			    while (x < board.length && y < board.length){
-					board[x][y]++;
-					y++;
-					x++;
-			    }
-			}
-			int z = r-1;
-			for (int x = c+1; x < board.length; x++){
-			    if (z > -1){
-					board[z][x]++;
-					z--;
-			    }
+			for (int i=1 ; i<board.length ; i++) {
+				if(isOnBoard(r+i,c+i)) {board[r+i][c+i]+=1;}
+				if(isOnBoard(r-i,c+i)) {board[r-i][c+i]+=1;}
+				if(isOnBoard(r,c+i)) {board[r][c+i]+=1;}
 			}
 			return true;
-		    }
 		}
+		
 		return false;
     }
 
