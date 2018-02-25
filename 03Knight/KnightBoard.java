@@ -126,6 +126,7 @@ public class KnightBoard {
 		return total;
 	}
 
+	//CRYSTAL'S MAIN!!!
 	public static void main(String[] args){
 	    KnightBoard a = new KnightBoard(3,3);
 
