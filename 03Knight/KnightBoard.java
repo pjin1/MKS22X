@@ -226,4 +226,5 @@ public class KnightBoard {
 	    System.out.println(d.countSolutions(0,0)); //prints 304
 
 	  }
+	
 }
