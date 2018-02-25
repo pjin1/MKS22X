@@ -45,7 +45,7 @@ public class KnightBoard {
 		    }
 		}
 		//@throws IllegalArgumentException when either parameter is negative or out of bounds.
-		if(startingRow<0 || startingCol<0) {
+		if(startingRow<0 || startingCol<0 || startingRow >= numRows || startingCol >= numCols) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -90,9 +90,16 @@ public class KnightBoard {
 	}
 	
 	public int countSolutions(int startingRow, int startingCol) {
-		
+		//@throws IllegalStateException when the board contains non-zero values.
+		for (int i = 0; i < board.length; i++){
+			for (int j = 0; j < board[0].length; j++){
+				if (board[i][j] != 0){
+		          throw new IllegalStateException();
+		        }
+		    }
+		}
 		//@throws IllegalArgumentException when either parameter is negative or out of bounds.
-		if(startingRow<0 || startingCol<0) {
+		if(startingRow<0 || startingCol<0 || startingRow >= numRows || startingCol >= numCols) {
 			throw new IllegalArgumentException();
 		}	
 		
