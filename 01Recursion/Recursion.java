@@ -10,14 +10,18 @@ public class Recursion {
 	}
 	
 	public int fib (int n) {
+		if (n < 0) {
+			throw new IllegalArgumentException();
+		}
+		
 		return fibHelp(n, 0, 1);
 	}
 	
 	public int fibHelp (int n, int f1, int f2) {
-		if (n < 0) {
-			throw new IllegalArgumentException();
-		}
 		if (n == 0) {
+			return 0;
+		}
+		if (n == 1) {
 			return f2;
 		}
 		return fibHelp (n-1, f2, f1 + f2);
