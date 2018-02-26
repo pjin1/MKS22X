@@ -19,10 +19,7 @@ public class Recursion {
 	
 	public int fibHelp (int n, int f1, int f2) {
 		if (n == 0) {
-			return 0;
-		}
-		if (n == 1) {
-			return f2;
+			return f1;
 		}
 		return fibHelp (n-1, f2, f1 + f2);
 	}
