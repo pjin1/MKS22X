@@ -142,7 +142,7 @@ public class Maze{
         		if(maze[row + i[0]][col + i[1]] == ' '){
         			maze[row + i[0]][col + i[1]] = '@';
                 if(solve(row + i[0], col + i[1], steps+1) != -1){
-                		return solve(row + i[0], col + i[1], steps+1);;
+                		return solve(row + i[0], col + i[1], steps+1);
                 }
                 notSol(row + i[0],col + i[1]);
          	}
