@@ -138,17 +138,17 @@ public class Maze{
         }
         
         for (int[] i : move){
+        		//check if valid spot to move
         		if(maze[row + i[0]][col + i[1]] == ' '){
         			maze[row + i[0]][col + i[1]] = '@';
-                int temp = solve(row + i[0], col + i[1], steps+1);
-                if(temp != -1){
-                		return temp;
+                if(solve(row + i[0], col + i[1], steps+1) != -1){
+                		return solve(row + i[0], col + i[1], steps+1);;
                 }
                 notSol(row + i[0],col + i[1]);
          	}
         	
         }
-        //COMPLETE SOLVE
+
         return -1; //so it compiles
     }
 
