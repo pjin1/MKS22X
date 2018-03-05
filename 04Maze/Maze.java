@@ -84,6 +84,12 @@ public class Maze{
         System.out.println("\033[2J\033[1;1H");
     }
 
+    	private void notSol(int row, int col) {
+    		if (maze[row][col] == '@') {
+    			maze[row][col] = '.';
+    		}
+    	}
+    	
 
     /*Wrapper Solve Function returns the helper function
       Note the helper function has the same name, but different parameters.
@@ -131,7 +137,17 @@ public class Maze{
     			return steps;
         }
         
-        
+        for (int[] i : move){
+        		if(maze[row + i[0]][col + i[1]] == ' '){
+        			maze[row + i[0]][col + i[1]] = '@';
+                int temp = solve(row + i[0], col + i[1], steps+1);
+                if(temp != -1){
+                		return temp;
+                }
+                notSol(row + i[0],col + i[1]);
+         	}
+        	
+        }
         //COMPLETE SOLVE
         return -1; //so it compiles
     }
