@@ -5,7 +5,8 @@ public class Maze{
     private char[][]maze;
     private boolean animate;//false by default
     private int[][] move = new int[][] {{1,0}, {0,1}, {-1,0}, {0,-1}};
-    		
+    private int w,l;	
+    
     /*Constructor loads a maze text file, and sets animate to false by default.
 
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -25,10 +26,12 @@ public class Maze{
     		Scanner inf = new Scanner(text);
     		Scanner inf1 = new Scanner(text);
     		
-    		int l = line.length(), w = 0;
+    		l = 0;
+    		w = 0;
     		
     		while (inf.hasNextLine()){
     			String line = inf.nextLine();
+    			l = line.length();
     			w++;
     		}
     		maze = new char[w][l];
@@ -52,7 +55,6 @@ public class Maze{
     		
 		for (int i=0 ; i<maze.length ; i++) {
 			for (int j=0 ; j<maze[i].length ; j++) {
-			    maze[i][j] = line.charAt(j);
 			    if (maze[i][j] == 'E') {
 				    e++;
 				}
@@ -125,6 +127,11 @@ public class Maze{
             wait(20);
         }
 
+        if (maze[row][col] == 'E') {
+    			return steps;
+        }
+        
+        
         //COMPLETE SOLVE
         return -1; //so it compiles
     }
