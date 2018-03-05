@@ -136,4 +136,15 @@ public class Maze{
         return -1; //so it compiles
     }
 
+    public String toString() {
+	    	String string = "";
+	    	for (int i=0; i<w; i++){
+	    	    for (int j=0; j<l; j++){
+	    	    		string += (maze[i][j]);
+	    	    }
+	    	    string += "\n";
+	    	}
+	    	return string;
+    }
+    
 }
