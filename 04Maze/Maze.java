@@ -20,69 +20,69 @@ public class Maze{
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
     public Maze(String filename) throws FileNotFoundException{
-    		animate = false;
+	animate = false;
 		
-    		try {
+	try {
 		
-	    		File text = new File(filename);
+	    File text = new File(filename);
 	
-	    		Scanner inf = new Scanner(text);
-	    		Scanner inf1 = new Scanner(text);
+	    Scanner inf = new Scanner(text);
+	    Scanner inf1 = new Scanner(text);
 	    		
-	    		l = 0;
-	    		w = 0;
+	    l = 0;
+	    w = 0;
 	    		
-	    		while (inf.hasNextLine()){
-	    			String line = inf.nextLine();
-	    			l = line.length();
-	    			w++;
-	    		}
-	    		maze = new char[w][l];
+	    while (inf.hasNextLine()){
+		String line = inf.nextLine();
+		l = line.length();
+		w++;
+	    }
+	    maze = new char[w][l];
 	
-	    		int x=0;
-			while(inf1.hasNextLine()){
-				String line = inf1.nextLine();
-				for (int j=0; j<line.length() ; j++){
-			    		maze[x][j] = line.charAt(j);
-			    	}
-			    	x++;
-			}
+	    int x=0;
+	    while(inf1.hasNextLine()){
+		String line = inf1.nextLine();
+		for (int j=0; j<line.length() ; j++){
+		    maze[x][j] = line.charAt(j);
+		}
+		x++;
+	    }
 			
-		    	if (isValid()) {
-		    		throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
-			}
-		}
+	    if (isValid()) {
+		throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
+	    }
+	}
 
-		catch (FileNotFoundException e) {
-    			System.err.println("FileNotFoundException: " + e.getMessage());
-		}
+	catch (FileNotFoundException e) {
+	    System.err.println("FileNotFoundException: " + e.getMessage());
+	}
 
     }
     
     private boolean isValid() {
-    		int e = 0, s = 0;
+	int e = 0, s = 0;
     		
-		for (int i=0 ; i<maze.length ; i++) {
-			for (int j=0 ; j<maze[i].length ; j++) {
-			    if (maze[i][j] == 'E') {
-				    e++;
-				}
-				if (maze[i][j] == 'S') {
-				    s++;
-				}
-    			}
+	for (int i=0 ; i<maze.length ; i++) {
+	    for (int j=0 ; j<maze[i].length ; j++) {
+		if (maze[i][j] == 'E') {
+		    e++;
 		}
+		if (maze[i][j] == 'S') {
+		    s++;
+		}
+	    }
+	}
 		
-		return e != 1 || s != 1;
+	return e != 1 || s != 1;
     }
     
     private void wait(int millis){
-         try {
-             Thread.sleep(millis);
-         }
-         catch (InterruptedException e) {
-         }
-     }
+	try {
+	    Thread.sleep(millis);
+	}
+	catch (InterruptedException e) {
+	}
+    }
 
     public void setAnimate(boolean b){
         animate = b;
@@ -93,11 +93,11 @@ public class Maze{
         System.out.println("\033[2J\033[1;1H");
     }
 
-    	private void notSol(int row, int col) {
-    		if (maze[row][col] == '@') {
-    			maze[row][col] = '.';
-    		}
-    	}
+    private void notSol(int row, int col) {
+	if (maze[row][col] == '@') {
+	    maze[row][col] = '.';
+	}
+    }
     	
 
     /*Wrapper Solve Function returns the helper function
@@ -105,18 +105,18 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-    		int row = 0, col = 0;
+	int row = 0, col = 0;
    
-    		for (int i = 0; i < maze.length; i++){
-    			for (int j = 0; j < maze[i].length; j++){
-    				if(maze[i][j] == 'S'){
-    					maze[i][j] = '@';
-	                row = i;
-	                col = j;
-    				}
-    			}
-    		}
-    		return solve(row,col,1);
+	for (int i = 0; i < maze.length; i++){
+	    for (int j = 0; j < maze[i].length; j++){
+		if(maze[i][j] == 'S'){
+		    maze[i][j] = '@';
+		    row = i;
+		    col = j;
+		}
+	    }
+	}
+	return solve(row,col,1);
     }
 
     /*
@@ -128,10 +128,10 @@ public class Maze{
       Returns -1 when the maze has no solution.
 
       Postcondition:
-        The S is replaced with '@' but the 'E' is not.
-        All visited spots that were not part of the solution are changed to '.'
-            Note: This is not required based on the algorithm, it is just nice visually to see.
-        All visited spots that are part of the solution are changed to '@'
+      The S is replaced with '@' but the 'E' is not.
+      All visited spots that were not part of the solution are changed to '.'
+      Note: This is not required based on the algorithm, it is just nice visually to see.
+      All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col, int steps){ //you can add more parameters since this is private
 
@@ -142,19 +142,20 @@ public class Maze{
             wait(20);
         }
 
-        if (maze[row][col] == 'E') {
-    			return steps;
-        }
+        
         
         for (int[] i : move){
-        		//check if valid spot to move
-        		if(maze[row + i[0]][col + i[1]] == ' '){
-        			maze[row + i[0]][col + i[1]] = '@';
+	    if (maze[row + i[0]][col + i[1]] == 'E') {
+		return steps;
+	    }
+	    //check if valid spot to move
+	    if(maze[row + i[0]][col + i[1]] == ' '){
+		maze[row + i[0]][col + i[1]] = '@';
                 if(solve(row + i[0], col + i[1], steps+1) != -1){
-                		return solve(row + i[0], col + i[1], steps+1);
+		    return solve(row + i[0], col + i[1], steps+1);
                 }
                 notSol(row + i[0],col + i[1]);
-         	}
+	    }
         	
         }
 
@@ -162,14 +163,14 @@ public class Maze{
     }
 
     public String toString() {
-	    	String string = "";
-	    	for (int i=0; i<w; i++){
-	    	    for (int j=0; j<l; j++){
-	    	    		string += (maze[i][j]);
-	    	    }
-	    	    string += "\n";
-	    	}
-	    	return string;
+	String string = "";
+	for (int i=0; i<w; i++){
+	    for (int j=0; j<l; j++){
+		string += (maze[i][j]);
+	    }
+	    string += "\n";
+	}
+	return string;
     }
     
     public static void main(String[] args) throws FileNotFoundException{
