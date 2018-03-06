@@ -19,10 +19,13 @@ public class Maze{
 
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
-    public Maze(String filename) throws FileNotFoundException{
-    		animate = false;
-
+public Maze(String filename) throws FileNotFoundException{
+		
+		try {
+			animate = false;
     		File text = new File(filename);
+    		
+
     		Scanner inf = new Scanner(text);
     		Scanner inf1 = new Scanner(text);
     		
@@ -36,18 +39,24 @@ public class Maze{
     		}
     		maze = new char[w][l];
 
+    		int x=0;
 		while(inf1.hasNextLine()){
 			String line = inf1.nextLine();
-			for (int i=0; i<w ; i++){
-	    	        for (int j=0; j<l ; j++){
-	    	        		maze[i][j] = line.charAt(j);
-	    	        }
-	    		}
+			for (int j=0; j<line.length() ; j++){
+		    		maze[x][j] = line.charAt(j);
+		    	}
+		    	x++;
 		}
-    		
-    		if (isValid()) {
-    			throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
+		
+	    	if (isValid()) {
+	    		throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
+			}
 		}
+
+		catch (FileNotFoundException e) {
+    			System.err.println("FileNotFoundException: " + e.getMessage());
+		}
+
     }
     
     private boolean isValid() {
@@ -161,6 +170,15 @@ public class Maze{
 	    	    string += "\n";
 	    	}
 	    	return string;
+    }
+    
+    public static void main(String[] args) throws FileNotFoundException{
+        Maze f = new Maze("data1.dat");//true animates the maze.
+        
+        f.setAnimate(true);
+        f.solve();
+
+        System.out.println(f);
     }
     
 }
