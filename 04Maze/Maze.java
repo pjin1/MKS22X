@@ -19,37 +19,37 @@ public class Maze{
 
       3. When the file is not found OR the file is invalid (not exactly 1 E and 1 S) then: print a meaningful error and exit the program.
     */
-public Maze(String filename) throws FileNotFoundException{
+    public Maze(String filename) throws FileNotFoundException{
+    		animate = false;
 		
-		try {
-			animate = false;
-    		File text = new File(filename);
-    		
-
-    		Scanner inf = new Scanner(text);
-    		Scanner inf1 = new Scanner(text);
-    		
-    		l = 0;
-    		w = 0;
-    		
-    		while (inf.hasNextLine()){
-    			String line = inf.nextLine();
-    			l = line.length();
-    			w++;
-    		}
-    		maze = new char[w][l];
-
-    		int x=0;
-		while(inf1.hasNextLine()){
-			String line = inf1.nextLine();
-			for (int j=0; j<line.length() ; j++){
-		    		maze[x][j] = line.charAt(j);
-		    	}
-		    	x++;
-		}
+    		try {
 		
-	    	if (isValid()) {
-	    		throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
+	    		File text = new File(filename);
+	
+	    		Scanner inf = new Scanner(text);
+	    		Scanner inf1 = new Scanner(text);
+	    		
+	    		l = 0;
+	    		w = 0;
+	    		
+	    		while (inf.hasNextLine()){
+	    			String line = inf.nextLine();
+	    			l = line.length();
+	    			w++;
+	    		}
+	    		maze = new char[w][l];
+	
+	    		int x=0;
+			while(inf1.hasNextLine()){
+				String line = inf1.nextLine();
+				for (int j=0; j<line.length() ; j++){
+			    		maze[x][j] = line.charAt(j);
+			    	}
+			    	x++;
+			}
+			
+		    	if (isValid()) {
+		    		throw new IllegalStateException("Quite unfortunate...please put valid amounts of starts and ends!");
 			}
 		}
 
@@ -173,7 +173,7 @@ public Maze(String filename) throws FileNotFoundException{
     }
     
     public static void main(String[] args) throws FileNotFoundException{
-        Maze f = new Maze("data1.dat");//true animates the maze.
+        Maze f = new Maze("data3.dat");//true animates the maze.
         
         f.setAnimate(true);
         f.solve();
