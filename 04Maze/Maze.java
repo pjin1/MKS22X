@@ -93,13 +93,6 @@ public class Maze{
         System.out.println("\033[2J\033[1;1H");
     }
 
-    	private void notSol(int row, int col) {
-    		if (maze[row][col] == '@') {
-    			maze[row][col] = '.';
-    		}
-    	}
-    	
-
     /*Wrapper Solve Function returns the helper function
       Note the helper function has the same name, but different parameters.
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
@@ -141,21 +134,28 @@ public class Maze{
             System.out.println(this);
             wait(20);
         }
-
-        if (maze[row][col] == 'E') {
-    			return steps;
-        }
         
+        
+	    	if (maze[row][col] == 'E') {
+				return steps;
+	    }
+	    	
+	    	maze[row ][col] = '@';
+	    	
         for (int[] i : move){
         		//check if valid spot to move
-        		if(maze[row + i[0]][col + i[1]] == ' '){
-        			maze[row + i[0]][col + i[1]] = '@';
+	        if(maze[row + i[0]][col + i[1]] == 'E') {
+	        		return steps;
+	        	
+	        }
+	        if(maze[row + i[0]][col + i[1]] == ' '){
+        			
                 if(solve(row + i[0], col + i[1], steps+1) != -1){
                 		return solve(row + i[0], col + i[1], steps+1);
+                }else {
+                	maze[row + i[0]][col + i[1]] = '.';
                 }
-                notSol(row + i[0],col + i[1]);
-         	}
-        	
+	        }
         }
 
         return -1; //so it compiles
