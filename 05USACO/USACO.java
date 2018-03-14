@@ -19,15 +19,23 @@ public class USACO {
     		    
     		    lake = new int [R][C];
     		    
+    		    while (N>0) {
+	    		    	Scanner inf2 = new Scanner(inf.nextLine());
+	    		    	int rs = Integer.parseInt(inf2.next())-1;
+	    		    	int cs = Integer.parseInt(inf2.next())-1;
+	    		    	int ds = Integer.parseInt(inf2.next());
+    		    }
+    		    
     		    for (int i = 0; row < R; i++){
 	    		    	for (int j = 0; col < C; j++){
 	    		    		pasture[i][j] = inf.nextInt();
 	    		    	}
     		    }
     		    
-    		    while(inf.hasNextLine()){
-    				
-    			}
+    		    for (int i = 0; i < N; i++) {
+    		    		int x = ;
+    		    		
+    		    }
     		    
     		    
     			//------------------------------
