@@ -13,17 +13,20 @@ public class Quick {
 		int start = 0, end = data.length-1;
 		int i = partition(data, start, end);
 
-		while(i[0] > k || i[1] < k){
-			if (i[0] < k){
-				start = i[1]+1;
+		while(i != k){
+			if (i < k){
+				start = i+1;
+				i = partition(data, start, end);
 			}
 			else {
-				end = i[0]-1;
+				end = i-1;
+                i = partition(data, start, end);
 			}
 			i = partition(data,start,end);
+		
 		}
-
-		return data[i[0]];
+		 
+		return data[i];
 	}
 
 	public static void quicksort(int[] a){
@@ -60,6 +63,7 @@ public class Quick {
 	    return end;
 	}
 	
+	//IVAN'S MAIN FOR TESTING
 	public static void main(String[] args){
 		int[] tests = {1000, 999,999,999,4,1,0,3,2,999,999,100,100,-10000, 10212, -19212, 23, 12};
 
