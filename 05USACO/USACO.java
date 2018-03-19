@@ -79,8 +79,7 @@ public class USACO {
     }
 
     public static int silver(String filename){
-        int[][] moves = {{1,0},{0,1},{-1,0},{0,-1}};
-
+        
     		try{
     			
 	    		File text = new File(filename);
@@ -125,60 +124,38 @@ public class USACO {
 	
 	  
 	    		board1[R1][C1] = 1;
-	    		board2[R1][C1] = 1;
+	    		
 
-            
-            int x = 0;
-	    		for (int i=0; i<T; i++){
-	    			if (i % 2 == 1){
-	    				
-	    				for (int r=0; r<N; r++){
-	    					for (int c = 0; c < M; c++){
-	    						if (board2[r][c] > 0){
-	    							board1[r][c] = 0;
-	    						}
-	    						if (board2[r][c] == 0){
-	    							if((r+moves[i][0])<N && (r+moves[i][0])>-1 && (board2[r+moves[i][0]][c])>-1 && (board2[r][c+moves[i][0]])>-1) {
-	    								x += board2[r+moves[i][0]][c];
+	    		while (T>0){
+	    			for (int i = 0; i < N; i++){
+	    				for (int j = 0; j < M; j++){
+	    					if (board1[i][j] != 0){
+	    						
+	    						int[][] moves = {{i+1,j},{i-1,j},{i,j+1},{i,j-1}};
+	    						
+	    						for (int[] x:moves){
+	    							if (x[0]>-1 && x[0]<N && x[1]>-1 && x[1]<M){
+	    								if(board1[x[0]][x[1]] != -1){
+	    									board2[x[0]][x[1]] += board1[i][j];
+	    								}
 	    							}
-	    							if((c+moves[i][0])<M && (c+moves[i][0])>-1 && (board2[r+moves[i][0]][c])>-1 && (board2[r][c+moves[i][0]])>-1) {
-	    								x += board2[r][r+moves[i][0]];
-	    							}
-	    							
-	    							board1[r][c] = x;
 	    						}
+	    						
+	    						board1[i][j] = 0;
 	    					}
+
 	    				}
-	    				
+
 	    			}
-	
-	    			else{
-	   
-	    				for (int r=0; r<N; r++){
-	    					for (int c = 0; c < M; c++){
-	    						if (board1[r][c] > 0){
-	    							board2[r][c] = 0;
-	    						}
-	    						if (board1[r][c] == 0){
-	    							if((r+moves[i][0])<N && (r+moves[i][0])>-1 && (board1[r+moves[i][0]][c])>-1 && (board1[r][c+moves[i][0]])>-1) {
-	    								x += board1[r+moves[i][0]][c];
-	    							}
-	    							if((c+moves[i][0])<M && (c+moves[i][0])>-1 && (board1[r+moves[i][0]][c])>-1 && (board1[r][c+moves[i][0]])>-1) {
-	    								x += board1[r][r+moves[i][0]];
-	    							}
-	    							
-	    							board1[r][c] = x;
-	    						}
-	    					}
-	    				}
-	    				
-	    			}
+	    			board1=board2;
+	    			
+	    			T = T-1;
 	    		}
 	
 	    		if (T % 2 == 0){
 	    			return board1[R2][C2];
 	    		}
-	    		return board2[R2][C2];
+	    		return board1[R2][C2];
 	    	}
 	    	
 	    	catch (FileNotFoundException e) {
