@@ -2,7 +2,11 @@ import java.util.*;
 import java.io.*;
 
 public class Merge {
-	public static int msort() {
+	public static void mergesort(int[] data) {
+		
+	}
+	
+	public static void msort(int[] data, int[] temp, int lo, int hi) {
 		
 	}
 }
