@@ -178,6 +178,4 @@ public class USACO {
 		return 0;
 	}
 
-
-	
 }
