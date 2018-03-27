@@ -2,6 +2,12 @@ import java.util.*;
 import java.io.*;
 
 public class Quick {
+	
+	public static void main(String[] args) {
+		int[] arr = new int[] {4, 3, 2, 1};
+		quicksort(arr);
+		System.out.println(Arrays.toString(arr));
+	}
 
 	private static void swap(int[] ary,int a, int b) {
 		int c = ary[a];
