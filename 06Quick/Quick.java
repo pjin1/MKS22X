@@ -3,12 +3,6 @@ import java.io.*;
 
 public class Quick {
 	
-	public static void main(String[] args) {
-		int[] arr = new int[] {4, 3, 2, 1};
-		quicksort(arr);
-		System.out.println(Arrays.toString(arr));
-	}
-
 	private static void swap(int[] ary,int a, int b) {
 		int c = ary[a];
 		ary[a] = ary[b];
@@ -54,30 +48,25 @@ public class Quick {
 		    return start;
 		}
 		
-		Random i = new Random();
-		int pi = data[start + i.nextInt(end-start+1)];
 		int s = start;
-	    start++;
+		int pi = (int) (Math.random()*(end-start+1));
+		pi += start;
+		int pv = data[pi];
 		
-	    swap(data,start,end);
+	    swap(data,pi,end);
 	    
 	    while (start < end+1){
-		    	if (data[start] > pi){
-		    		swap(data,start,end);
-		    		end--;
-		    	}
-		    	else if (data[start] < pi){
+	
+		    	if(data[start]<pv){
 		    		swap(data,start,s);
 		    		s++;
-		    		start++;
 		    	}
-		    	else{
-		    		start++;
-		    	}
+		    	start++;
+
 	    }
-	    
-	  
-	    return end;
+
+	    swap(data,s,end);
+	   	return s;
 	}
 	
 }
