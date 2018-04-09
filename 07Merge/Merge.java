@@ -23,6 +23,19 @@ public class Merge {
 		}
 	}
 
+	public static void merge(int[] data, int[] temp, int lo, int hi, int lo1, int hi1) {
+		for (int i=lo; i<hi1+1; i++){
+			if (lo<hi+1 && (lo1>hi1 || temp[lo]<temp[lo1])){
+				data[i] = temp[lo];
+				lo++;
+			}
+			else {
+				data[i] = temp[lo1];
+				lo1++;
+			}
+		}
+	}
+
 	public static void insertionSort(int[] ary, int lo, int hi) {
 		for (int i = lo; i < hi; i++) {
 			int temp = ary[i];
@@ -31,10 +44,9 @@ public class Merge {
 				ary[index] = ary[index-1];
 				index--;
 			}
-			ary[index] = temp;
-		}
-	}
-
+			  ary[index] = temp;
+		  }
+	  }
 	
 }
 
