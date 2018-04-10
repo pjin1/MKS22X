@@ -5,6 +5,7 @@ private class Node{
 
     public Node(int value){
     		data = value;
+    		prev = next = null;
     }
 
     public Node getPrev(){
@@ -29,11 +30,6 @@ private class Node{
 
     public void setValue(int value){
     		data = value;
-    }
-
-    public void remove(){
-	    	prev.setNext(this.getNext());
-	    	next.stePrev(this.getPrev());
     }
     
 }
