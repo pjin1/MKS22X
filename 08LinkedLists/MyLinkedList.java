@@ -67,15 +67,21 @@ public class MyLinkedList{
 
 	  if(size==0) {
 		  start = end = node;
-		  size++;
+		  size+=1;
 		  return true;
 	  }
-	  	  
+	  	 
+	  getNode(size-1).setNext(node);
 	  size+=1;
+	  getNode(size-1).setPrev(end);
+	  
 	  return true;
   }
   
-  public void add(int index, Integer value);//exceptions!
+  public void add(int index, Integer value) {
+	  
+	  //exceptions!
+  }
 
   //The remove methods can cause a problem, this is why we shouldn't 
   //use an int as the data, we need objects to distinguish between index and data
