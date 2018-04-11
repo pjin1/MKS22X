@@ -83,7 +83,7 @@ public class MyLinkedList{
 		  throw new IndexOutOfBoundsException();
 	  }
 	  
-	  Node add = new Node(getNode(index), getNode(index).getPrev(), value);
+	  Node add = new Node(value);
 	  
 	  if(index==size){
 		  add(value);
