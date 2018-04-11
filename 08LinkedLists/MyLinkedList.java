@@ -55,7 +55,7 @@ public class MyLinkedList{
 
   public int indexOf(Integer value) {
 	  for(int i=0 ; i<size ; i++) {
-		  if(getNode(i).getValue().equals(value)){
+		  if((getNode(i).getValue())==(value)){
 			  return i;
 		  }
 	  }
@@ -79,22 +79,105 @@ public class MyLinkedList{
   }
   
   public void add(int index, Integer value) {
+	  if(index>size+1 || index<0){
+		  throw new IndexOutOfBoundsException();
+	  }
 	  
+	  Node add = new Node(getNode(index), getNode(index).getPrev(), value);
+	  
+	  if(index==size){
+		  add(value);
+	  }
+	  
+	  if (getNode(index).getPrev() != null) {
+		  getNode(index).getPrev().setNext(add);
+	  }
+	  
+	  if (index==0) {
+		  if (size==0) {
+              start = add;
+              end = start;
+		  }
+
+		  else {
+			  start = add;
+		  }
+	  }
+	  
+	  size+=1;
 	  //exceptions!
   }
 
   //The remove methods can cause a problem, this is why we shouldn't 
   //use an int as the data, we need objects to distinguish between index and data
   public boolean remove(Integer value) {
-	  
+	  int i = indexOf(value);
+	  if(i!=-1){
+		  remove(i);
+		  return true;
+	  }
+	  return false;
   }
   
   public Integer remove(int index) {
+	  if(index>size+1 || index<0){
+		  throw new IndexOutOfBoundsException();
+	  }
 	  
-	  prev.setNext(this.getNext());
-	  next.stePrev(this.getPrev());
+	  Integer a = get(index);
+	  
+	  if (index==0){
+		  int n = start.getValue();
+		  start = start.getNext();
+		  start.setPrev(null);
+		  size-=1;
+		  return n;
+	  }
+	  if (index==size-1){
+		  int n = end.getValue();
+		  end = end.getPrev();
+		  end.setNext(null);
+		  size-=1;
+		  return n;
+	  }
+	  return a;
+
 	  //exceptions! 
 	  //returns the value of what you removed.
   }
+  private class Node{
 
+	    private int data;
+	    private Node prev, next;
+
+	    public Node(int value){
+	    		data = value;
+	    		prev = next = null;
+	    }
+
+	    public Node getPrev(){
+	    		return prev;
+	    }
+
+	    public void setPrev(Node node){
+	    		prev = node;
+	    }
+
+	    public Node getNext(){
+	    		return next;
+	    }
+
+	    public void setNext(Node node){
+	    		next = node;
+	    }
+
+	    public int getValue(){
+	    		return data;
+	    }
+
+	    public void setValue(int value){
+	    		data = value;
+	    }
+	    
+	}
 }
