@@ -1,159 +1,177 @@
 public class MyLinkedList{
-  private Node start,end;
-  private int size;
+	private Node start,end;
+	private int size;
 
-  //This method will help you write other
-  //methods, it is private to protect your list
-  private Node getNode(int index) {
-	  if(index>size+1 || index<0){
-		  throw new IndexOutOfBoundsException();
-	  }
-	  
-	  Node i = start;
-	  
-	  while(index>0) {
-		  i=i.getNext();
-	  }
-	  
-	  return i;
-  }
+	//This method will help you write other
+	//methods, it is private to protect your list
+	private Node getNode(int index) {
+		if(index>=size || index<0){
+			throw new IndexOutOfBoundsException();
+		}
 
-  public MyLinkedList() {
-	  clear();
-  }
-  
-  public String toString() {
-	  String string = "{ ";
-	  
-	  for (int i = 0; i < size; i++){
-		  string += getNode(i).toString() + " ";
-	  }
-	  
-	  return string + "}";
-  }
-  
-  public void clear() {
-	  start=null;
-	  end=null;
-	  size=0;
-  }
-  
-  public int size() {
-	  return size;
-  }
-  
-  public Integer get(int index) {	  
-	  return getNode(index).getValue();
-	  //exceptions!
-  }
-  
-  public Integer set(int index, Integer value) {
-	  getNode(index).setValue(value);
-	  return value;
-	  //exceptions!
-  }
+		Node i = start;
 
-  public int indexOf(Integer value) {
-	  for(int i=0 ; i<size ; i++) {
-		  if((getNode(i).getValue())==(value)){
-			  return i;
-		  }
-	  }
-	  return -1;
-  }
+		while(index>0) {
+			i=i.getNext();
+			index--;
+		}
 
-  public boolean add(Integer newData) {
-	  Node node = new Node(newData);
+		return i;
+	}
 
-	  if(size==0) {
-		  start = end = node;
-		  size+=1;
-		  return true;
-	  }
-	  	 
-	  getNode(size-1).setNext(node);
-	  size+=1;
-	  getNode(size-1).setPrev(end);
-	  
-	  return true;
-  }
-  
-  public void add(int index, Integer value) {
-	  if(index>size+1 || index<0){
-		  throw new IndexOutOfBoundsException();
-	  }
-	  
-	  Node add = new Node(value);
-	  
-	  if(index==size){
-		  add(value);
-	  }
-	  
-	  if (getNode(index).getPrev() != null) {
-		  getNode(index).getPrev().setNext(add);
-	  }
-	  
-	  if (index==0) {
-		  if (size==0) {
-              start = add;
-              end = start;
-		  }
+	public MyLinkedList() {
+		clear();
+	}
 
-		  else {
-			  start = add;
-		  }
-	  }
-	  
-	  size+=1;
-	  //exceptions!
-  }
+	public String toString() {
+		String string = "{ ";
 
-  //The remove methods can cause a problem, this is why we shouldn't 
-  //use an int as the data, we need objects to distinguish between index and data
-  public boolean remove(Integer value) {
-	  int i = indexOf(value);
-	  if(i!=-1){
-		  remove(i);
-		  return true;
-	  }
-	  return false;
-  }
-  
-  public Integer remove(int index) {
-	  if(index>size+1 || index<0){
-		  throw new IndexOutOfBoundsException();
-	  }
-	  
-	  Integer a = get(index);
-	  
-	  if (index==0){
-		  int n = start.getValue();
-		  start = start.getNext();
-		  start.setPrev(null);
-		  size-=1;
-		  return n;
-	  }
-	  if (index==size-1){
-		  int n = end.getValue();
-		  end = end.getPrev();
-		  end.setNext(null);
-		  size-=1;
-		  return n;
-	  }
-	  return a;
+		for (int i = 0; i < size; i++){
+			string += getNode(i).toString() + " ";
+		}
 
-	  //exceptions! 
-	  //returns the value of what you removed.
-  }
-  private class Node{
+		return string + "}";
+	}
 
-	    private int data;
-	    private Node prev, next;
+	public void clear() {
+		start=null;
+		end=null;
+		size=0;
+	}
 
-	    public Node(int value){
-	    		data = value;
-	    		prev = next = null;
-	    }
+	public int size() {
+		return size;
+	}
+
+	public Integer get(int index) {
+		if(index >= size || index < 0){
+			throw new IndexOutOfBoundsException();
+		}
+		return getNode(index).getValue();
+		//exceptions!
+	}
+
+	public Integer set(int index, Integer value) {
+		getNode(index).setValue(value);
+		return value;
+		//exceptions!
+	}
+
+	public int indexOf(Integer value) {
+		for(int i=0 ; i<size ; i++) {
+			if((getNode(i).getValue())==(value)){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public boolean add(Integer newData) {
+		Node node = new Node(newData);
+
+		if(size==0) {
+			start = end = node;
+			size+=1;
+			return true;
+		}
+
+		end.setNext(node);
+		size+=1;
+		node.setPrev(end);
+		end = node;
+		return true;
+	}
+
+	public void add(int index, Integer value) {
+		if(index>size || index<0){
+			throw new IndexOutOfBoundsException();
+		}
+
+		Node add = new Node(value);
+
+		if(index==size){
+			add(value);
+		}
+
+		else if (getNode(index).getPrev() != null) {
+			Node temp = getNode(index), temp2 = temp.getPrev();
+			temp2.setNext(add);
+			add.setNext(temp);
+			temp.setPrev(add);
+			add.setPrev(temp2);
+			size+=1;
+		}
+
+		else if (index==0) {
+			if (size==0) {
+				start = add;
+				end = start;
+			}
+
+			else {
+				Node temp = start;
+				start = add;
+				add.setNext(temp);
+				temp.setPrev(start);
+
+			}
+			size+=1;
+		}
+
+		//exceptions!
+	}
+
+	//The remove methods can cause a problem, this is why we shouldn't
+	//use an int as the data, we need objects to distinguish between index and data
+	public boolean remove(Integer value) {
+		int i = indexOf(value);
+		if(i!=-1){
+			remove(i);
+			return true;
+		}
+		return false;
+	}
+
+	public Integer remove(int index) {
+		if(index>=size || index<0){
+			throw new IndexOutOfBoundsException();
+		}
+
+		Integer a = get(index);
+
+		if (index==0){
+			int n = start.getValue();
+			start = start.getNext();
+			start.setPrev(null);
+			size-=1;
+			return n;
+		}
+		if (index==size-1){
+			int n = end.getValue();
+			end = getNode(index - 1);
+			end.setNext(null);
+			size-=1;
+			return n;
+		}
+		Node prev = getNode(index).getPrev(), next = prev.getNext().getNext();
+		prev.setNext(next);
+		next.setPrev(prev);
+		size-=1;
+		return a;
+
+		//exceptions!
+		//returns the value of what you removed.
+	}
+}
+private class Node{
+
+	private int data;
+	private Node prev, next;
+
+	public Node(int value){
+		data = value;
+		prev = next = null;
+	}
 
 	    public Node getPrev(){
 	    		return prev;
@@ -178,8 +196,12 @@ public class MyLinkedList{
 	    public void setValue(int value){
 	    		data = value;
 	    }
-	    
-	}
+
+      public String toString(){
+        return "[" + data + "]";
+      }
+}
+
   public static void main(String[] args){
 	     MyLinkedList a = new MyLinkedList();
 
