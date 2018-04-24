@@ -3,6 +3,10 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class MyDeque<E>{
+
+	private E[] data;
+	private int start,end,size;
+	
 	
 	public MyDeque() {
 		
@@ -15,7 +19,7 @@ public class MyDeque<E>{
 	}
 	
 	int size() {
-		
+		return size;
 	}
 
 	
