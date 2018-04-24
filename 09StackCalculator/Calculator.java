@@ -18,7 +18,7 @@ public class Calculator{
 				}
 				
 				else if (i.equals("-")) {
-					stack.push(num0-num1);
+					stack.push(num1-num0);
 				}
 				
 				else if (i.equals("*")) {
@@ -26,7 +26,7 @@ public class Calculator{
 				}
 				
 				else if (i.equals("/")) {
-					stack.push(num0/num1);
+					stack.push(num1/num0);
 				}
 				
 				else if (i.equals("%")){
