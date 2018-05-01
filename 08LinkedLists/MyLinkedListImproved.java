@@ -280,7 +280,7 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	    	}
 	    	
 	    	public boolean hasNext() {
-	    		return curr.getNext() != null;
+	    		return curr != null;	    	
 	    	}
 	
 	    	public T next() {
