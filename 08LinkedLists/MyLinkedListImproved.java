@@ -4,10 +4,11 @@ import java.util.NoSuchElementException;
 public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T>{
 	private Node start, end;
 	private int size;
-
+	
 	public MyLinkedListImproved(){
 		clear();
 	}
+	
 	//This method will help you write other
 	//methods, it is private to protect your list
 	private Node getNode(int index) {
@@ -142,14 +143,14 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 		T a = get(index);
 
 		if (index==0){
-			int n = start.getValue();
+			T n = start.getValue();
 			start = start.getNext();
 			start.setPrev(null);
 			size-=1;
 			return n;
 		}
 		if (index==size-1){
-			int n = end.getValue();
+			T n = end.getValue();
 			end = getNode(index - 1);
 			end.setNext(null);
 			size-=1;
@@ -166,55 +167,132 @@ public class MyLinkedListImproved<T extends Comparable<T>> implements Iterable<T
 	}
 
 	
+	
 	public int max() {
-		int index = 0;
-		
-		for(int i=0; i<size; i++) {
-			if()
+		if(size == 0){
+		    return -1;
 		}
+		
+		int index = 0, i = 0;
+		T max = start.getValue();
+
+		for(T elem: this) {
+			if(elem.compareTo(max) > 0) {
+				max = elem;
+				index = i;
+			}
+			i++;
+		}
+		
+		return index;
 	}
 
 	public int min() {
+		if(size == 0){
+		    return -1;
+		}
 		
+		int index = 0, i = 0;
+		T min = start.getValue();
+
+		for(T elem: this) {
+			if(elem.compareTo(min) < 0) {
+				min = elem;
+				index = i;
+			}
+			i++;
+		}
+		
+		return index;
 	}
-	
-	
-	private class Node{
 
-		private int data;
-		private Node prev, next;
+	public void extend(MyLinkedListImproved<T> other){
+		if(other.start != null){
+			
+			if(start != null){
+				end.setNext(other.start);
+				other.start.setPrev(end);
+				
+			}
+			else{
+				start = other.start;
+			}
+			
+			end = other.end;
+			size += other.size();
 
-		public Node(int value){
-			data = value;
-			prev = next = null;
-		}
-
-		public Node getPrev(){
-			return prev;
-		}
-
-		public void setPrev(Node node){
-			prev = node;
-		}
-
-		public Node getNext(){
-			return next;
-		}
-
-		public void setNext(Node node){
-			next = node;
-		}
-
-		public int getValue(){
-			return data;
-		}
-
-		public void setValue(int value){
-			data = value;
-		}
-
-		public String toString(){
-			return "[" + data + "]";
+			other.clear();
 		}
 	}
+
+
+
+	
+    private class Node{
+	
+	    	private T data;
+	    	private Node prev, next;
+	
+	    	public Node(T value){
+	    		data = value;
+	    		prev = next = null;
+	    	}
+	
+	    	public Node getPrev(){
+	    		return prev;
+	    	}
+	
+	    	public void setPrev(Node node){
+	    		prev = node;
+	    	}
+	
+	    	public Node getNext(){
+	    		return next;
+	    	}
+	
+	    	public void setNext(Node node){
+	    		next = node;
+	    	}
+	
+	    	public T getValue(){
+	    		return data;
+	    	}
+	
+	    	public void setValue(T value){
+	    		data = value;
+	    	}
+	
+	    	public String toString(){
+	    		return "[" + data + "]";
+	    	}
+    }
+    
+    
+    public LinkedIterator iterator(){
+		return new LinkedIterator(start);
+	}
+    
+    public class LinkedIterator implements Iterator<T>{
+	    	Node curr;
+	
+	    	public LinkedIterator(Node start){
+	    		curr = start;
+	    	}
+	    	
+	    	public boolean hasNext() {
+	    		return curr != null;	    	
+	    	}
+	
+	    	public T next() {
+	    		if (!hasNext()){		    
+	    			throw new NoSuchElementException();
+	    		}
+
+	    		T ans = curr.getValue();
+	    		curr = curr.getNext();
+	    		return ans;
+	    	}
+	    	
+    }
+
 }
