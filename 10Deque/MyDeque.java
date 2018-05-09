@@ -41,7 +41,7 @@ public class MyDeque<E>{
 		}
 		
 		else if (start == 0){
-		    start = end+1;
+		    start = data.length-1;
 		    data[start] = elem;
 		}
 		
@@ -49,6 +49,8 @@ public class MyDeque<E>{
 		    start--;
 		    data[start] = elem;
 		}
+
+		size++;
 		
 	}
 	
@@ -75,7 +77,8 @@ public class MyDeque<E>{
 		    end++;
 		    data[end] = elem;
 		}
-		
+
+		size++;
 	}
 
 	public E removeFirst() {
