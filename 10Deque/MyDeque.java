@@ -63,7 +63,7 @@ public class MyDeque<E>{
 			data[end] = elem;
 		}
 
-		else if (data.length == size()){
+		else if (data.length == size){
 			resize();
 			addLast(elem);
 		}
@@ -143,20 +143,21 @@ public class MyDeque<E>{
 	public void resize() {
 		E[] resized = (E[]) new Object[data.length*2];
 		int counter = 0;
+		int start1 = start;
 		
 		while (counter<size) {
 
-			if (start >= size){
-				start = 0;
+			if (start1 >= size){
+				start1 = 0;
 			}
 			
-			resized[counter] = data[start];
-			start++;
-
+			resized[counter] = data[start1];
+			
+			start1++;
 			counter++;
 		}
 
-		start = 0;
+		start1 = start;
 		end = size-1;
 		data = resized;
 	}
