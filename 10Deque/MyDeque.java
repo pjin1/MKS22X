@@ -10,6 +10,7 @@ public class MyDeque<E>{
 	@SuppressWarnings("unchecked")
 	public MyDeque() {
 		data = (E[])new Object[10];
+		size = 0;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -19,6 +20,7 @@ public class MyDeque<E>{
 		}
 
 		data = (E[]) new Object[initialCapacity];
+		size = 0;
 	}
 
 	public int size() {
@@ -36,8 +38,10 @@ public class MyDeque<E>{
 		}
 
 		else if (data.length == size()){
+			//  System.out.println("TERM ADDED: " + elem);
 			resize();
 			addFirst(elem);
+			size--;
 		}
 
 		else if (start == 0){
@@ -64,8 +68,10 @@ public class MyDeque<E>{
 		}
 
 		else if (data.length == size){
+			//    System.out.println("TERM ADDED: " + elem);
 			resize();
 			addLast(elem);
+			size--;
 		}
 
 		else if (end == data.length-1){
@@ -74,7 +80,8 @@ public class MyDeque<E>{
 		}
 
 		else{
-			data[++end] = elem;
+			end++;
+			data[end] = elem;
 		}
 
 		size++;
@@ -95,7 +102,7 @@ public class MyDeque<E>{
 		else {
 			start++;
 		}
-		
+
 		size--;
 		return rem;
 	}
@@ -115,7 +122,7 @@ public class MyDeque<E>{
 		else {
 			end--;
 		}
-		
+
 		size--;
 		return rem;
 	}
@@ -144,95 +151,29 @@ public class MyDeque<E>{
 		E[] resized = (E[]) new Object[data.length*2];
 		int counter = 0;
 		int start1 = start;
-		
+
+		//  System.out.println("Before resize: " + Arrays.toString(data));
+		//  System.out.println("Before start, end: " + start + ", " + end);
+
 		while (counter<size) {
 
 			if (start1 >= size){
 				start1 = 0;
 			}
-			
+
 			resized[counter] = data[start1];
-			
+
 			start1++;
 			counter++;
 		}
 
-		start1 = start;
+		start = 0;
 		end = size-1;
 		data = resized;
+		//    System.out.println("After resize: " + Arrays.toString(data));
+		//    System.out.println("After start, end: " + start + ", " + end);
 	}
 
+	//Crystal helped me debug :)
 
-
-
-	//==========================================================================
-	public String toString(){
-		String ans = "[";
-		if(start < end){
-			for (int i = start; i <= end; i++){
-				ans += data[i] + " , ";
-			}
-		}
-		else{
-			for(int i = start; i < data.length; i++){
-				ans += data[i] + ", ";
-			}
-			for(int i = 0; i <= end; i++){
-				ans += data[i] + ", ";
-			}
-		}
-		ans = ans.substring(0, ans.length() - 2) + "]";
-		return ans;
-	}
-
-
-
-
-	public static void main(String[] args) {
-		MyDeque<String> a = new MyDeque<>(), a1 = new MyDeque<>();
-		ArrayList<String> b = new ArrayList<>();
-
-		int size = Integer.parseInt(args[0]);
-		for(int i = 0; i < size; i++){
-			int temp = (int)(Math.random() * 1000);
-			/*	if(temp % 2 == 0){
-		a.addFirst("" + temp);
-		a1.addFirst("" + temp);
-		b.add(0, "" + temp);
-		}
-
-		else{*/
-			a.addLast("" + temp);
-			a1.addLast("" + temp);
-			b.add("" + temp);
-			//	}
-		}
-
-		int index = 0;
-		boolean hasError = false;
-		String errorEvaluation = "Errors found at these indices: ";
-		for (String x : b){
-			if (!(x.equals(a.getFirst()))){
-				System.out.println("The getFirst() function is incorrect at index " + index);
-				hasError = true;
-			}
-			if (!(x.equals(a.removeFirst()))){
-				System.out.println("There is an error at index " + index);
-				errorEvaluation += index + ", ";
-				hasError = true;
-			}
-			index++;
-		}
-
-
-		if(hasError){
-			errorEvaluation = errorEvaluation.substring(0, errorEvaluation.length() - 2);
-			System.out.println(errorEvaluation);
-			System.out.println("MyDeque: " + a1);
-			System.out.println("Actual Deque: " + b);
-		}
-		else{
-			System.out.println("Your deque is bug-free!");
-		}
-	}
 }
