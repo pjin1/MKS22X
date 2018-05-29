@@ -70,7 +70,7 @@ public class MazeSolver{
 	  				maze.set(temp.getX(),temp.getY(),'.');
 	  			}
 	  		}
-
+		}
 	  		   
 		return false;
 	}
