@@ -8,6 +8,7 @@ public class Maze{
 	private Location start,end;
 	private char[][]maze;
 
+    private boolean aStar;
 
 
 	/*
@@ -15,8 +16,24 @@ public class Maze{
   YOU MUST COMPLETE THIS METHOD!!!
   YOU MUST COMPLETE THIS METHOD!!!
 	 */
-	public Location[] getNeighbors(Location L){
-		return null;
+    public Location[] getNeighbors(Location L){
+	    	Location[] ans = new Location[4];
+	    	int[][] sides = {{1,0},{-1,0},{0,1},{0,-1}};
+	    	int counter = 0;
+	
+	    	for(int[] s:sides) {
+	    		int x=s[0]; 
+	    		int y=s[1];
+	
+	    		if((y >= 0) && (y < maze.length) && (x >= 0) && (x < maze[0].length)) {
+	    			if(maze[x][y] == ' ' || maze[x][y] == 'E'){
+	    				ans[counter] = new Location(x,y,L, (Math.abs(end.getX()-x) + Math.abs(end.getY()-y)) , L.getDistSoFar()+1 , getAStar());
+	
+	    			}
+	    		}
+	    	}
+	 	
+	    	return ans;
 	}
 
 	public Location getStart(){
@@ -26,6 +43,14 @@ public class Maze{
 		return end;
 	}
 
+
+	public boolean getAStar(){
+		return aStar;
+	}
+
+	public void setAStar(boolean b){
+		aStar = b;
+	}
 
 	private static String go(int x,int y){
 		return ("\033[" + x + ";" + y + "H");
@@ -92,6 +117,9 @@ public class Maze{
 		 */
 		end = new Location(endr,endc,null);
 		start = new Location(startr,startc,null);
+		
+		aStar = false;
+		
 	}
 
 	public String toStringColor(){
