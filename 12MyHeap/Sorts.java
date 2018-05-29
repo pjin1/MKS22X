@@ -26,28 +26,23 @@ public class Sorts {
 		int pos2 = 2*ind+2;
 
 
-			if (((pos1 < data.length) && (data[ind].compareTo(data[pos1]) < 0)) || 
-					((pos2 < data.length) && (data[ind].compareTo(data[pos2]) < 0))) {
+		if (((pos1 < data.length) && (data[ind].compareTo(data[pos1]) < 0)) || 
+				((pos2 < data.length) && (data[ind].compareTo(data[pos2]) < 0))) {
 
-				if (data[pos1].compareTo(data[pos2]) > 0) {
-					swap(data,pos1,ind);
-					ind = pos1;
-					down(data,pos1);
-				}
-
-				else {
-					swap(data,pos2,ind);
-					ind = pos2;
-					down(data,pos2);
-				}
-
+			if (data[pos1].compareTo(data[pos2]) > 0) {
+				swap(data,pos1,ind);
+				ind = pos1;
+				down(data,pos1);
 			}
-		
 
+			else {
+				swap(data,pos2,ind);
+				ind = pos2;
+				down(data,pos2);
+			}
+
+		}
 
 	}
-
-
-
 
 }
