@@ -57,11 +57,9 @@ public class MyHeap<T extends Comparable<T>>{
 	public T remove() {
 		T ans = heap[0];
 		heap[0] = heap[size-1];
-
-		down(0);
-
 		heap[size-1] = null;
 		size-=1;
+		down(0);
 
 		return ans;
 	}
@@ -74,10 +72,16 @@ public class MyHeap<T extends Comparable<T>>{
 
 	private void up(int ind) {
 		int pos = (ind-1)/2;
-		T low = heap[ind];
 
 		while (max && (pos>=0) && (heap[ind].compareTo(heap[pos]))>0){
 			swap(heap,pos,ind);
+			ind = pos;
+			pos = (ind - 1)/2;
+		}
+		while (!max && (pos>=0) && (heap[ind].compareTo(heap[pos]))<0){
+			swap(heap,pos,ind);
+			ind = pos;
+			pos = (ind - 1)/2;
 		}
 
 	}
@@ -89,15 +93,15 @@ public class MyHeap<T extends Comparable<T>>{
 
 		if (max) {
 			if (((pos1 < size) && (heap[ind].compareTo(heap[pos1]) < 0)) || 
-					((pos2 < size) && (heap[ind].compareTo(heap[pos2]) < 0))) {
+				((pos2 < size) && (heap[ind].compareTo(heap[pos2]) < 0))) {
 
-				if (heap[pos1].compareTo(heap[pos2]) > 0) {
+				if (pos2 >= size || heap[pos1].compareTo(heap[pos2]) > 0) {
 					swap(heap,pos1,ind);
 					ind = pos1;
 					down(pos1);
 				}
 
-				else {
+				else if (pos2 < size && heap[ind].compareTo(heap[pos2]) < 0) {
 					swap(heap,pos2,ind);
 					ind = pos2;
 					down(pos2);
@@ -108,15 +112,15 @@ public class MyHeap<T extends Comparable<T>>{
 
 		else {
 			if ((pos1 < size) && (heap[ind].compareTo(heap[pos1]) > 0) ||
-					(pos2 < size) && (heap[ind].compareTo(heap[pos2]) > 0)) {
+				(pos2 < size) && (heap[ind].compareTo(heap[pos2]) > 0)) {
 
-				if (heap[pos1].compareTo(heap[pos2]) < 0) {
+				if (pos2 >= size || heap[pos1].compareTo(heap[pos2]) < 0) {
 					swap(heap,pos1,ind);
 					ind = pos1;
 					down(pos1);
 				}
 
-				else {
+				else if(heap[ind].compareTo(heap[pos2]) > 0){
 					swap(heap,pos2,ind);
 					ind = pos2;
 					down(pos2);
@@ -127,5 +131,6 @@ public class MyHeap<T extends Comparable<T>>{
 
 	}
 
+	//Crystal helped me debug
 
 }
